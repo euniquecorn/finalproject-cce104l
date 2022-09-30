@@ -1,0 +1,90 @@
+<div class="container">
+  <div class="h-75">
+    <table class="table table-striped">
+      <thead>
+
+        <!-- //Column Name Headers -->
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Price</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products; index as i">
+          <th scope="row">{{i + 1}}</th>
+          <td>{{product.id}}</td>
+          <td>{{product.name}}</td>
+          <td>{{product.unitPrice | number}}</td>
+
+          <!-- //delete button per row -->
+          <td>
+            <button
+             class="btn btn-sm btn-danger"(click)="productRemove(i)"> &times;
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="h-25">
+    <div class="card w-50">
+      <div class="card-header">Details</div>
+      <div class="card-body">
+
+        <!-- ID INPUT TEXT AREA (READ ONLY) -->
+        <div class="input-group mb-2">
+          <span class="input-group-text">ID</span>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="formData.id"
+            placeholder="Product ID"
+            aria-label="Product ID"
+            aria-describedby="Product ID"
+            disabled
+          />
+        </div>
+
+        <!-- PRODUCT NAME TEXT AREA -->
+        <div class="input-group-mb2">
+          <span class="input-group-text">Name</span>
+          <input type="text"
+          class="form-control"
+          [(ngModel)]="formData.name"
+          placeholder="Product Name"
+          aria-describedby="Product Name"
+          />
+        </div>
+
+        <!-- PRICE TEXT AREA -->
+        <div class="input-group-mb2">
+          <span class="input-group-text">Price</span>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)] = "formData.unitPrice"
+            placeholder="Unit Price"
+            aria-label="Unit Price"
+            aria-describedby="Unit Price"
+          />
+        </div>
+      </div>
+
+      <!-- BUTTON SAVE FOR ADD PRODUCTS -->
+      <div class="card-footer">
+        <div class="btn-group">
+          <button
+          type="submit"
+          class="btn btn-md btn-success"
+          (click)="save()"
+          >
+            save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

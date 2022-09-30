@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="h-75">
+    <table class="table table-striped">
+      <!-- TABLE HEADERS FOR P.O.S -->
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Unit Price</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Sub-Total</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor=" let pos of POS; index as i">
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="pos.id"
+              placeholder="ID"
+              aria-label="ID"
+              disabled
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="pos.name"
+              placeholder="name"
+              aria-label="name"
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="pos.unitPrice"
+              placeholder="unitPrice"
+              aria-label="unitPrice"
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="pos.qnty"
+              placeholder="QUANTITY"
+              aria-label="QUANTITY"
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="pos.subTotal"
+              placeholder="Sub-Total"
+              aria-label="Sub-Total"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

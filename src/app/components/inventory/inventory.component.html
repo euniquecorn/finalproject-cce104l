@@ -1,0 +1,140 @@
+    <!-- INVENTORY PANEL LISTS -->
+        <div class="container">
+          <div class="h-75">
+
+            <!-- INVENTORY LISTING TABLE -->
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">IN STOCK</th>
+                </tr>
+              </thead>
+
+              <!-- FOR INVENTORY ROWS -->
+              <tbody>
+                <tr *ngFor="let inventory of inventories; index as i">
+                  <td>{{inventory.id}}</td>
+                  <td>{{inventory.name}}</td>
+                  <td>{{inventory.inStock}}</td>
+
+                  <!-- DELETE BUTTON PER ROW -->
+                  <td>
+                    <button class="btn btn-sm btn-danger" (click)="inventoryRemove(i)">
+                      &times;
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="h-25">
+            <div class="card w-50">
+              <div class="card-header">DETAILS</div>
+              <div class="card-body">
+
+                <!-- INPUT PRODUCT ID -->
+                <div class="input-group mb-2">
+                  <span class="input-group-text">ID</span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="inventoryData.id"
+                    placeholder="Product ID"
+                    aria-label="Product ID"
+                    aria-describedby="Product ID"
+                    disabled
+                  />
+                </div>
+
+                <!-- INPUT PRODUCT NAME -->
+                <div class="input-group mb-2">
+                  <span class="input-group-text">Name</span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="inventoryData.name"
+                    placeholder="Product Name"
+                    aria-label="Product Name"
+                    aria-describedby="Product Name"
+                  />
+                </div>
+
+                <!-- INPUT REMAINING STOCKS -->
+                <div class="input group mb-2">
+                  <span class="input-group-text"> Remaining Stocks</span>
+                   <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="inventoryData.inStock"
+                      placeholder="Remaining Stocks"
+                      aria-label="Remaining Stocks"
+                      aria-describedby="Remaining Stocks"
+                    />
+                </div>
+
+                <!-- INVENTORY TABLE DETAILS -->
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Date</th>
+                      <th scope="col">Stock</th>
+                      <th scope="col">Quantity</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor = "let inventory of inventoryDetail; index as i">
+                      <!-- INPUT FOR DATE (DISABLED)  -->
+                      <td>
+                        <input
+                          type="text"
+                          class="form-control"
+                          [(ngModel)]="inventory.date"
+                          placeholder="Date"
+                          aria-label="Inventory Date"
+                          disabled
+                        />
+                      </td>
+                      <!-- INPUT FOR STOCK DETAIL -->
+                      <td>
+                        <input
+                          type="text"
+                          class="form-control"
+                          [(ngModel)]="inventory.stock"
+                          placeholder="Stock"
+                          aria-label="Stock"
+                        />
+                      </td>
+
+                      <!-- INPUT FOR QUANTITY DETAIL -->
+                      <td>
+                        <input
+                          type="text"
+                          class="form-control"
+                          [(ngModel)]="inventory.quantity"
+                          placeholder="Quantity"
+                          aria-label="Quantity"
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <!-- SAVE BUTTON -->
+                <div class="card-footer">
+                  <div class="btn-group">
+                    <button
+                      type = "submit"
+                      class= "btn btn-md btn-success"
+                      (click)="inventorySave()">
+                      Save
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+      </div>
