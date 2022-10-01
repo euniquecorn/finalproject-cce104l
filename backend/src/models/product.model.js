@@ -18,7 +18,11 @@ const productSchema = new Schema({
     require: true,
     defaultValue: 0
   },
-  isDeleted: Boolean,
+  isDeleted: {
+    type: Boolean,
+    require: true,
+    defaultValue: false
+  },
 });
 
 const Product = model('Product', productSchema);
