@@ -4,64 +4,114 @@
       <!-- TABLE HEADERS FOR P.O.S -->
       <thead>
         <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Name</th>
-          <th scope="col">Unit Price</th>
+          <th scope="col">Product ID</th>
+          <th scope="col">Price</th>
           <th scope="col">Quantity</th>
-          <th scope="col">Sub-Total</th>
+          <th scope="col">Amount</th>
         </tr>
       </thead>
 
       <tbody>
         <tr *ngFor=" let pos of POS; index as i">
-          <td>
-            <input
-              type="text"
-              class="form-control"
-              [(ngModel)]="pos.id"
-              placeholder="ID"
-              aria-label="ID"
-              disabled
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              class="form-control"
-              [(ngModel)]="pos.name"
-              placeholder="name"
-              aria-label="name"
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              class="form-control"
-              [(ngModel)]="pos.unitPrice"
-              placeholder="unitPrice"
-              aria-label="unitPrice"
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              class="form-control"
-              [(ngModel)]="pos.qnty"
-              placeholder="QUANTITY"
-              aria-label="QUANTITY"
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              class="form-control"
-              [(ngModel)]="pos.subTotal"
-              placeholder="Sub-Total"
-              aria-label="Sub-Total"
-            />
-          </td>
+          <td>{{pos.PID}}</td>
+          <td>{{pos.price}}</td>
+          <td>{{pos.quantity}}</td>
+          <td>{{pos.amount}}</td>
         </tr>
       </tbody>
+      <tfoot>
+        <tr>
+            <td colspan="3">Gross Total</td>
+            <td>21,000</td>
+        </tr>
     </table>
+
+    <div class="h-25">
+      <div class="card w-50">
+        <div class="card-header">DETAILS</div>
+        <div class="card-body">
+
+          <!-- DETAILS UTILITIES -->
+          <div class="input-group-mb-2">
+            <span class="input-group-text">Product ID</span>
+            <input
+              type="text"
+              class="form-control"
+              >
+          </div>
+          <div class="input-group-mb-2">
+            <span class="input-group-text">Name</span>
+            <input
+              type="text"
+              class="form-control"
+              >
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <table class="table table-striped">
+          <thead>
+            <!-- Column Names -->
+            <tr>
+              <th scope="col">Transaction ID</th>
+              <th scope="col">Date</th>
+              <th scope="col">Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Amount</th>
+            </tr>
+          </thead>
+
+          <!-- Table Details -->
+          <tbody>
+            <td>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Transaction ID"
+                disabled
+              >
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Date"
+              >
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Price"
+              >
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Quantity"
+              >
+            </td>
+            <td>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Amount"
+              >
+            </td>
+          </tbody>
+      </table>
+
+      <div class="card-footer">
+        <div class="btn-group">
+          <button
+            type="submit"
+            class="btn btn-md btn-success"
+            >
+            Save
+          </button>
+        </div>
+      </div>
   </div>
 </div>

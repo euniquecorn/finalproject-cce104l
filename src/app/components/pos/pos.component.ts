@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-pos',
@@ -9,21 +10,48 @@ export class PosComponent implements OnInit {
 
   // FOR POS LISTING
   POS = [
-    {id: Date.now(), name: 'Toothbrush', unitPrice: 20, qnty: 1, subTotal:1 }
+    {PID: 0, price: 0, quantity: 1, amount: 0 }
   ];
   posData = {...newPOS};
+
+  // FOR POS DETAILS
+
 
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  save(){
+    this.POS.push(this.posData);
+
+    //Reset the POS DATA
+    this.posData = {...newPOS, PID: Date.now()};
+  }
+
+}
+
+const newDetail: posDetail = {
+  PID: Date.now() +2,
+  date: moment().format('DD-MM-YYYY'),
+  price: 0,
+  qnty: 0,
+  amount: 0
 }
 
   //FOR POS LISTING
   const newPOS = {
-    id: Date.now() + 2,
-    name: '',
-    unitPrice: 0,
-    qnty: 0,
-    subTotal:0
+    PID: 0,
+    price: 0,
+    quantity: 0,
+    amount: 0,
+  }
+
+  // FOR POS DETAILS
+  interface posDetail {
+    PID: number;
+    date: number | string;
+    price: number;
+    qnty: number;
+    amount: number;
   }
