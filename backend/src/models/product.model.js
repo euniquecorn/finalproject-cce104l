@@ -18,6 +18,7 @@ const productSchema = new Schema({
     require: true,
     defaultValue: 0
   },
+  isDeleted: Boolean,
 });
 
 const Product = model('Product', productSchema);

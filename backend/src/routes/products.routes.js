@@ -43,7 +43,7 @@ ordersRoutes.patch('/:id', async (req, res) => {
 
   try {
     Products.findOneAndUpdate(
-      { _id: '6337eca4a351c34f68c19762' },
+      { _id: id },
       body,
       (result) => {
         res.status(200).send({
@@ -56,6 +56,7 @@ ordersRoutes.patch('/:id', async (req, res) => {
   } catch(err) {
     const error = err.message || err.stack || err;
     console.log('Update product - error: ', error);
+
     res.status(500).send({
       message: 'Failed to update product',
       code: 500,
