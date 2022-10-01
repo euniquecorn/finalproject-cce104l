@@ -15,14 +15,14 @@
       <tbody>
         <tr *ngFor="let product of products; index as i">
           <th scope="row">{{i + 1}}</th>
-          <td>{{product.id}}</td>
+          <td>{{product.productId}}</td>
           <td>{{product.name}}</td>
-          <td>{{product.unitPrice | number}}</td>
+          <td>{{product.price | number}}</td>
 
           <!-- //delete button per row -->
           <td>
             <button
-             class="btn btn-sm btn-danger"(click)="productRemove(i)"> &times;
+             class="btn btn-sm btn-danger"(click)="productRemove(product)"> &times;
             </button>
           </td>
         </tr>
@@ -40,7 +40,7 @@
           <input
             type="text"
             class="form-control"
-            [(ngModel)]="formData.id"
+            [(ngModel)]="formData.productId"
             placeholder="Product ID"
             aria-label="Product ID"
             aria-describedby="Product ID"
@@ -65,10 +65,23 @@
           <input
             type="text"
             class="form-control"
-            [(ngModel)] = "formData.unitPrice"
+            [(ngModel)] = "formData.price"
             placeholder="Unit Price"
             aria-label="Unit Price"
             aria-describedby="Unit Price"
+          />
+        </div>
+
+        <!-- Qnty TEXT AREA -->
+        <div class="input-group-mb2">
+          <span class="input-group-text">Qnty</span>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)] = "formData.count"
+            placeholder="Qnty"
+            aria-label="Qnty"
+            aria-describedby="Qnty"
           />
         </div>
       </div>
@@ -81,7 +94,7 @@
           class="btn btn-md btn-success"
           (click)="save()"
           >
-            save
+            Save
           </button>
         </div>
       </div>

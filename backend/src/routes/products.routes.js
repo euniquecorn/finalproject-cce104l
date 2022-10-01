@@ -17,27 +17,36 @@ ordersRoutes.get('/', async (req, res) => {
 });
 
 ordersRoutes.post('/', async (req, res) => {
-  const { body } = req;
-  const newProduct = new Products(body);
-  console.log('newProduct: ', newProduct);
-
-  newProduct.save((err, result) => {
-    if (err) {
-      console.log('Product save error: ', err.message || err.stack || err);
-
-      return res.status(500).send({
-        message: 'Failed to save product',
-        code: 500,
-        error: err
-      });
+  try {
+    const { body } = req;
+    console.log('typeof body: ', typeof body, body);
+    if (typeof body !== 'object') {
+      throw new Error('Invalid payload, must be json format.');
     }
 
-    res.status(200).send({
-      message: 'Success',
-      code: 200,
-      data: result
+    const newProduct = new Products(body);
+    console.log('newProduct: ', newProduct);
+
+    newProduct.save((err, result) => {
+      if (err) {
+        const errMessage = `Product save error: ${err.message || err.stack || err}` ;
+        throw new Error(errMessage);
+      }
+
+      res.status(200).send({
+        message: 'Success',
+        code: 200,
+        data: result
+      });
     });
-  });
+  } catch(err) {
+    const error = err.message || err.stack || err;
+    return res.status(500).send({
+      message: error || 'Failed to save product',
+      code: 500,
+      error
+    });
+  }
 });
 
 ordersRoutes.patch('/:id', async (req, res) => {
