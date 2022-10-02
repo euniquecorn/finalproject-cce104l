@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="h-75">
+  <div class="h-75 table-container">
     <table class="table table-striped">
       <thead>
 
@@ -13,7 +13,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of products; index as i">
+        <tr *ngFor="let product of products; index as i" (click)="selectItem(product)">
           <th scope="row">{{i + 1}}</th>
           <td>{{product.productId}}</td>
           <td>{{product.name}}</td>
@@ -31,7 +31,18 @@
   </div>
   <div class="h-25">
     <div class="card w-50">
-      <div class="card-header">Details</div>
+      <div class="card-header d-flex w-100 justify-content-between">
+        <div> Details </div>
+
+        <div class="btn-group text-right">
+          <button
+          type="submit"
+          class="btn btn-md btn-info"
+          (click)="createNew()">
+            New
+          </button>
+        </div>
+      </div>
       <div class="card-body">
 
         <!-- ID INPUT TEXT AREA (READ ONLY) -->
@@ -49,7 +60,7 @@
         </div>
 
         <!-- PRODUCT NAME TEXT AREA -->
-        <div class="input-group-mb2">
+        <div class="input-group mb-2">
           <span class="input-group-text">Name</span>
           <input type="text"
           class="form-control"
@@ -60,7 +71,7 @@
         </div>
 
         <!-- PRICE TEXT AREA -->
-        <div class="input-group-mb2">
+        <div class="input-group mb-2">
           <span class="input-group-text">Price</span>
           <input
             type="text"
@@ -73,7 +84,7 @@
         </div>
 
         <!-- Qnty TEXT AREA -->
-        <div class="input-group-mb2">
+        <div class="input-group mb-2">
           <span class="input-group-text">Qnty</span>
           <input
             type="text"
@@ -87,14 +98,22 @@
       </div>
 
       <!-- BUTTON SAVE FOR ADD PRODUCTS -->
-      <div class="card-footer">
-        <div class="btn-group">
+      <div class="card-footer d-flex justify-content-between">
+        <div class="mr-3">
           <button
-          type="submit"
-          class="btn btn-md btn-success"
-          (click)="save()"
-          >
-            Save
+            type="button"
+            class="btn btn-md btn-success "
+            (click)="save()">
+            {{ !isEditing ? 'Update' : 'Save' }}
+          </button>
+        </div>
+        <div>
+          <button
+            *ngIf="isEditing"
+            type="button"
+            class="btn btn-md btn-primary"
+            (click)="cancel()">
+            Cancel
           </button>
         </div>
       </div>

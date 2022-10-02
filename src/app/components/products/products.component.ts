@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { tap } from 'rxjs';
 import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
@@ -10,11 +11,12 @@ export class ProductsComponent implements OnInit {
 
   // FOR PRODUCT LISTING
   products: Product[] = []
-  formData = {...newData};
+  formData: Product = { ...newData };
+  isEditing = false;
 
   constructor(
     private productsService: ProductsService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getProducts();
@@ -22,6 +24,9 @@ export class ProductsComponent implements OnInit {
 
   getProducts(): void {
     this.productsService.getProducts()
+      .pipe(
+        tap((products) => { this.formData = products[0]; })
+      )
       .subscribe((products: Product[]) => this.products = products)
   }
 
@@ -31,8 +36,20 @@ export class ProductsComponent implements OnInit {
       .subscribe(() => this.getProducts())
   }
 
-  save(){
-    this.productsService.createProduct(this.formData)
+  save() {
+    if (this.isEditing) {
+      return this.productsService.updateProduct(this.formData)
+        .subscribe(
+          () => {
+            console.log('Update success');
+            this.isEditing = false;
+            this.getProducts();
+          },
+          (error) => console.log(error.message || error.stack || error)
+        );
+    }
+
+    return this.productsService.createProduct(this.formData)
       .subscribe(
         () => {
           this.products.push(this.formData);
@@ -40,9 +57,25 @@ export class ProductsComponent implements OnInit {
           // reset the form data
           this.formData = {...newData, productId: Date.now()};
           console.log('newData', newData);
+          this.isEditing = false;
         },
         (error) => console.log(error.message || error.stack || error)
       );
+  }
+
+  selectItem(product: Product) {
+    this.isEditing = true;
+    this.formData = { ...product };
+  }
+
+  createNew() {
+    this.isEditing = true;
+    this.formData = { ...newData };
+  }
+
+  cancel() {
+    this.getProducts();
+    this.isEditing = false;
   }
 }
 
