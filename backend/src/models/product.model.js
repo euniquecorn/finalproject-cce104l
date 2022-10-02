@@ -8,14 +8,13 @@ const productSchema = new Schema({
     defaultValue: 1
   },
   name: String,
-  count: {
+  price: {
     type: Number,
     require: true,
     defaultValue: 0
   },
-  price: {
+  count: {
     type: Number,
-    require: true,
     defaultValue: 0
   },
   isDeleted: {
