@@ -10,8 +10,6 @@ app.use(cors());
 app.use(json());
 
 // mongodb connection
-// W2Lc9vtJkshTA3n
-// mongodb+srv://admin24:<password>@inventorysystem.2whui7u.mongodb.net/test
 mongoose.connect('mongodb+srv://admin24:W2Lc9vtJkshTA3n@inventorysystem.2whui7u.mongodb.net/invsystem', () => {
   console.log('Successfully connected to DB...');
 });
