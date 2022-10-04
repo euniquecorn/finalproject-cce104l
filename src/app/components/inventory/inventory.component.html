@@ -16,7 +16,7 @@
 
               <!-- FOR INVENTORY ROWS -->
               <tbody>
-                <tr *ngFor="let inventory of inventories; index as i">
+                <tr *ngFor="let inventory of inventories" (click)="selectInventory(inventory)">
                   <td>{{inventory.productId}}</td>
                   <td>{{inventory.productName}}</td>
                   <td>{{inventory.totalStockIn}}</td>
@@ -27,7 +27,7 @@
             </table>
           </div>
 
-          <div class="h-25" *ngIf="inventories && inventories.length">
+          <div class="h-25" *ngIf="selectedInventory">
             <div class="card w-100">
               <div class="card-header">
                 <h2>Inventory Details</h2>
@@ -35,11 +35,11 @@
                   <div>
                     <div>
                       <span>Product ID: </span>
-                      <span class="fw-bold">{{ inventories[0].productId }}</span>
+                      <span class="fw-bold">{{ selectedInventory.productId }}</span>
                     </div>
                     <div>
                       <span>Product Name: </span>
-                      <span class="fw-bold">{{ inventories[0].productName }}</span>
+                      <span class="fw-bold">{{ selectedInventory.productName }}</span>
                     </div>
                   </div>
                   <div>
@@ -65,7 +65,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let inventory of inventories[0].inventories; index as i">
+                    <tr *ngFor="let inventory of selectedInventory.inventories">
                       <!-- INPUT FOR DATE (DISABLED)  -->
                       <td>
                         <input
@@ -85,7 +85,7 @@
                           [(ngModel)]="inventory.stockIn"
                           placeholder="Stock in"
                           aria-label="Stock in"
-                          [disabled]="!inventory.stockIn"
+                          [disabled]="!inventory.stockIn && inventory.stockOut"
                         />
                       </td>
                       <!-- INPUT FOR STOCK Out -->
@@ -96,7 +96,7 @@
                           [(ngModel)]="inventory.stockOut"
                           placeholder="Stock out"
                           aria-label="Stock out"
-                          [disabled]="!inventory.stockOut"
+                          [disabled]="!inventory.stockOut && inventory.stockIn"
                         />
                       </td>
                       <td>

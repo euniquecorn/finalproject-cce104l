@@ -10,6 +10,7 @@ export class InventoryComponent implements OnInit {
 
   // FOR INVENTORY LISTING
   inventories: InventoryDetail[] = [];
+  selectedInventory: any;
 
   constructor(
     private inventoryService: InventoryService,
@@ -23,7 +24,20 @@ export class InventoryComponent implements OnInit {
   getInventory(): void {
     console.log('getInventory');
     this.inventoryService.getInventory()
-      .subscribe((inventories: InventoryDetail[]) => this.inventories = inventories)
+      .subscribe((inventories: InventoryDetail[]) => {
+        if (inventories && inventories.length) {
+          this.selectedInventory = inventories[0];
+        }
+
+        this.inventories = inventories;
+      })
+  }
+
+  selectInventory(inventory: InventoryDetail) {
+    this.selectedInventory = {
+      ...inventory,
+      inventories: inventory.inventories.length ? inventory.inventories : [{ ...newInventoryDetail }]
+    };
   }
 
   newInventory() {
@@ -41,10 +55,14 @@ export class InventoryComponent implements OnInit {
 }
 
 // FOR INVENTORY LISTING
-const newInventory = {
-  id: Date.now() + 2,
-  name: '',
-  inStock: 0
+const newInventoryDetail = {
+  prodDocId: '',
+  productId: Date.now(),
+  productName: '',
+  totalStockIn: 0,
+  totalStockOut: 0,
+  totalStockRem: 0,
+  inventories: [],
 }
 
 // FOR INVENTORY DETAILS
