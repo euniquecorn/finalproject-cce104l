@@ -8,23 +8,20 @@
                 <tr>
                   <th scope="col">ID</th>
                   <th scope="col">Name</th>
-                  <th scope="col">IN STOCK</th>
+                  <th scope="col">Total Stock-In</th>
+                  <th scope="col">Total Stock-Out</th>
+                  <th scope="col">Stock Available</th>
                 </tr>
               </thead>
 
               <!-- FOR INVENTORY ROWS -->
               <tbody>
                 <tr *ngFor="let inventory of inventories; index as i">
-                  <td>{{inventory.id}}</td>
-                  <td>{{inventory.name}}</td>
-                  <td>{{inventory.inStock}}</td>
-
-                  <!-- DELETE BUTTON PER ROW -->
-                  <td>
-                    <button class="btn btn-sm btn-danger" (click)="inventoryRemove(i)">
-                      &times;
-                    </button>
-                  </td>
+                  <td>{{inventory.productId}}</td>
+                  <td>{{inventory.productName}}</td>
+                  <td>{{inventory.totalStockIn}}</td>
+                  <td>{{inventory.totalStockOut}}</td>
+                  <td>{{inventory.totalStockOut - inventory.totalStockOut}}</td>
                 </tr>
               </tbody>
             </table>

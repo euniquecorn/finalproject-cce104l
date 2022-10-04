@@ -92,6 +92,5 @@ export interface Product {
   id?: number | string;
   productId: number,
   name: string
-  count: number,
   price: number,
 }

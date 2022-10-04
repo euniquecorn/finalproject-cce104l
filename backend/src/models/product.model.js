@@ -13,10 +13,6 @@ const productSchema = new Schema({
     require: true,
     defaultValue: 0
   },
-  count: {
-    type: Number,
-    defaultValue: 0
-  },
   isDeleted: {
     type: Boolean,
     require: true,

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import { InventoryService } from 'src/app/services/inventory.service';
+import { Product } from '../products/products.component';
 
 @Component({
   selector: 'app-inventory',
@@ -8,22 +10,31 @@ import * as moment from 'moment';
 })
 export class InventoryComponent implements OnInit {
 
-    // FOR INVENTORY LISTING
-    inventories = [
-      {id: Date.now(), name: 'Toothbrush', inStock: 20}
-    ];
-    inventoryData = {...newInventory};
+  // FOR INVENTORY LISTING
+  inventories: InventoryItem[] = [];
+  inventoryData = {...newInventory};
 
-    // FOR INVENTORY DETAILS
-    inventoryDetail: InventoryDetail[] = [{ ...newDetail }];
-    detail = {...newDetail};
+  // FOR INVENTORY DETAILS
+  inventoryDetail: InventoryDetail[] = [{ ...newDetail }];
+  detail = {...newDetail};
+
+  constructor(
+    private inventoryService: InventoryService,
+  ) {}
 
 
   ngOnInit(): void {
+    this.getInventory();
+  }
+
+  getInventory(): void {
+    console.log('getInventory');
+    this.inventoryService.getInventory()
+      .subscribe((inventories: InventoryItem[]) => this.inventories = inventories)
   }
 
   inventorySave(){
-    this.inventories.push(this.inventoryData);
+    // this.inventories.push(this.inventoryData);
 
     // reset the form data
     this.inventoryData = {...newInventory, id: Date.now()};
@@ -38,7 +49,6 @@ export class InventoryComponent implements OnInit {
   inventoryRemove(idx: number) {
     this.inventories.splice(idx, 1)
   }
-  constructor() { }
 
 }
 
@@ -60,4 +70,13 @@ interface InventoryDetail {
   date: number | string;
   stock: string;
   quantity: number;
+}
+
+export interface InventoryItem {
+  prodDocId: string;
+  productId: string;
+  productName: string;
+  totalStockIn: number,
+  totalStockOut: number,
+  totalStockRem: number,
 }

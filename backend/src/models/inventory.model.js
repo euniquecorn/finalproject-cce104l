@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const inventorySchema = new Schema({
+  prodDocId: Schema.ObjectId,
   productId: {
     type: Number,
     require: true
