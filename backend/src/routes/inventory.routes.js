@@ -21,17 +21,14 @@ ordersRoutes.get('/', async (req, res) => {
 ordersRoutes.post('/', async (req, res) => {
   try {
     const { body } = req;
-    console.log('typeof body: ', typeof body, body);
     if (typeof body !== 'object') {
       throw new Error('Invalid payload, must be json format.');
     }
 
-    const newProduct = new Products(body);
-    console.log('newProduct: ', newProduct);
-
-    newProduct.save((err, result) => {
+    const newStockIn = new Inventory(body);
+    newStockIn.save((err, result) => {
       if (err) {
-        const errMessage = `Product save error: ${err.message || err.stack || err}` ;
+        const errMessage = `Product stock in save error: ${err.message || err.stack || err}` ;
         throw new Error(errMessage);
       }
 
@@ -44,7 +41,7 @@ ordersRoutes.post('/', async (req, res) => {
   } catch(err) {
     const error = err.message || err.stack || err;
     return res.status(500).send({
-      message: error || 'Failed to save product',
+      message: error || 'Failed to save inventory',
       code: 500,
       error
     });

@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { ProductsComponent } from './components/products/products.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
 import { PosComponent } from './components/pos/pos.component';
+import { PipesModule } from './pipes/pipes.module';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { PosComponent } from './components/pos/pos.component';
     NgbModule,
     FormsModule,
     HttpClientModule,
+    PipesModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

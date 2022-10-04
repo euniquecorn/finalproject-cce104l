@@ -1,3 +1,4 @@
+const moment = require('moment');
 const { Products, Inventory } = require("../models");
 
 const stocksCount = async () => {
@@ -6,19 +7,19 @@ const stocksCount = async () => {
   const query = {
     isDeleted: undefined
   };
-  const products = await Products.find(query);
+  const products = await Products.find(query).lean();
 
   if (products && products.length) {
     for (let product of products) {
       let totalStockIn = 0;
       let totalStockOut = 0;
-      let totalRemStocks = 0;
+      let totalStockRem = 0;
 
       const inventories = await Inventory.find({ prodDocId: product._id });
       inventories.forEach((inventory) => {
         totalStockIn += inventory.stockIn;
         totalStockOut += inventory.stockOut;
-        totalRemStocks = totalStockIn - totalStockOut;
+        totalStockRem = totalStockIn - totalStockOut;
       });
 
       stockCount.push({
@@ -27,13 +28,15 @@ const stocksCount = async () => {
         productName: product.name,
         totalStockIn,
         totalStockOut,
-        totalRemStocks,
-        inventories
+        totalStockRem,
+        inventories: inventories.map((inv) => {
+          return { ...inv._doc, createdAt: moment(inv.createdAt).format('MM-DD-YYYY') };
+        })
       });
     }
   }
 
-  console.log('stockCount: ', stockCount);
+  console.log('stockCount: ', JSON.stringify(stockCount[0]));
 
   return stockCount;
 }
