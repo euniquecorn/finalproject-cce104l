@@ -101,6 +101,7 @@ const newInventoryDetail = {
   prodDocId: '',
   productId: Date.now(),
   productName: '',
+  unitPrice: 0,
   totalStockIn: 0,
   totalStockOut: 0,
   totalStockRem: 0,
@@ -124,6 +125,7 @@ export interface InventoryDetail {
   prodDocId: string;
   productId: number | string;
   productName: string;
+  unitPrice?: number;
   totalStockIn: number | 0,
   totalStockOut: number | 0,
   totalStockRem: number | 0,

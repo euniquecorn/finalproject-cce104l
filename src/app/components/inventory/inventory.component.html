@@ -10,6 +10,7 @@
                   <th scope="col">Name</th>
                   <th scope="col">Total Stock-In</th>
                   <th scope="col">Total Stock-Out</th>
+                  <th scope="col">Total Sales</th>
                   <th scope="col">Stock Available</th>
                 </tr>
               </thead>
@@ -21,6 +22,7 @@
                   <td>{{inventory.productName}}</td>
                   <td>{{inventory.totalStockIn}}</td>
                   <td>{{inventory.totalStockOut}}</td>
+                  <td>{{inventory.totalStockOut * (inventory.unitPrice || 0)}}</td>
                   <td>{{inventory.totalStockRem}}</td>
                 </tr>
               </tbody>
@@ -96,7 +98,7 @@
                           [(ngModel)]="inventory.stockOut"
                           placeholder="Stock out"
                           aria-label="Stock out"
-                          disabled
+                          [disabled]="inventory.stockIn && !inventory.stockOut"
                         />
                       </td>
                       <td>

@@ -26,6 +26,7 @@ const stocksCount = async () => {
         prodDocId: product._id,
         productId: product.productId,
         productName: product.name,
+        unitPrice: product.price,
         totalStockIn,
         totalStockOut,
         totalStockRem,
