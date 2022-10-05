@@ -48,10 +48,6 @@ export class InventoryComponent implements OnInit {
     };
   }
 
-  newInventory() {
-    console.log('create new inventory');
-  }
-
   inventorySave(inventory: InventoryItem){
     console.log('inventory: ', inventory);
     if (!inventory._id) {
