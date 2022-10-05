@@ -86,7 +86,7 @@ inventoryRoutes.delete('/:id', async (req, res) => {
       { isDeleted: true },
       (result) => {
         res.status(200).send({
-          message: `Product ${id} successfully deleted.`,
+          message: `Inventory ${id} item successfully deleted.`,
           code: 200,
           data: result
         });
@@ -94,7 +94,7 @@ inventoryRoutes.delete('/:id', async (req, res) => {
     );
   } catch(err) {
     const error = err.message || err.stack || err;
-    console.log('Delete product - error: ', error);
+    console.log('Delete inventory item - error: ', error);
 
     res.status(500).send({
       message: 'Failed to delete inventory.',

@@ -8,7 +8,6 @@ import { InventoryService } from 'src/app/services/inventory.service';
   styleUrls: ['./inventory.component.scss']
 })
 export class InventoryComponent implements OnInit {
-
   // FOR INVENTORY LISTING
   inventories: InventoryDetail[] = [];
   selectedInventory: any;
@@ -32,8 +31,8 @@ export class InventoryComponent implements OnInit {
       })
   }
 
-  selectInventory(inventory: InventoryDetail) {
-    const newInventoryItem: InventoryItem = {
+  newInventoryItem(inventory: InventoryDetail): InventoryItem {
+    return {
       prodDocId: inventory.prodDocId,
       productId: +inventory.productId,
       productName: inventory.productName,
@@ -41,11 +40,23 @@ export class InventoryComponent implements OnInit {
       stockOut: 0,
       createdAt: moment().format('MM-DD-YYYY'),
     };
+  }
+
+  selectInventory(inventory: InventoryDetail) {
+    const newInventoryItem: InventoryItem = this.newInventoryItem(inventory);
 
     this.selectedInventory = {
       ...inventory,
       inventories: inventory.inventories.length ? inventory.inventories : [{ ...newInventoryItem }]
     };
+  }
+
+  newStockIn(selectedInventory: InventoryDetail) {
+    console.log('selectedInventory: ', selectedInventory);
+    if (selectedInventory.inventories.length) {
+      const newInventoryItem: InventoryItem = this.newInventoryItem(selectedInventory);
+      selectedInventory.inventories.push({ ...newInventoryItem });
+    }
   }
 
   inventorySave(inventory: InventoryItem){

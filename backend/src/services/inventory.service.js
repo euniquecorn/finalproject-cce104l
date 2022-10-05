@@ -15,7 +15,7 @@ const stocksCount = async () => {
       let totalStockOut = 0;
       let totalStockRem = 0;
 
-      const inventories = await Inventory.find({ prodDocId: product._id });
+      const inventories = await Inventory.find({ ...query, prodDocId: product._id });
       inventories.forEach((inventory) => {
         totalStockIn += inventory.stockIn;
         totalStockOut += inventory.stockOut;
