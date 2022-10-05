@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { InventoryService } from 'src/app/services/inventory.service';
 
 @Component({
@@ -16,13 +17,11 @@ export class InventoryComponent implements OnInit {
     private inventoryService: InventoryService,
   ) {}
 
-
   ngOnInit(): void {
     this.getInventory();
   }
 
   getInventory(): void {
-    console.log('getInventory');
     this.inventoryService.getInventory()
       .subscribe((inventories: InventoryDetail[]) => {
         if (inventories && inventories.length) {
@@ -34,9 +33,18 @@ export class InventoryComponent implements OnInit {
   }
 
   selectInventory(inventory: InventoryDetail) {
+    const newInventoryItem: InventoryItem = {
+      prodDocId: inventory.prodDocId,
+      productId: +inventory.productId,
+      productName: inventory.productName,
+      stockIn: 0,
+      stockOut: 0,
+      createdAt: moment().format('MM-DD-YYYY'),
+    };
+
     this.selectedInventory = {
       ...inventory,
-      inventories: inventory.inventories.length ? inventory.inventories : [{ ...newInventoryDetail }]
+      inventories: inventory.inventories.length ? inventory.inventories : [{ ...newInventoryItem }]
     };
   }
 
@@ -44,12 +52,39 @@ export class InventoryComponent implements OnInit {
     console.log('create new inventory');
   }
 
-  inventorySave(){
-    console.log('save inventory');
+  inventorySave(inventory: InventoryItem){
+    console.log('inventory: ', inventory);
+    if (!inventory._id) {
+      this.inventoryService.stockIn(inventory)
+        .subscribe(
+          (result) => {
+            console.log('stockIn-result', result);
+            this.getInventory();
+          }
+        );
+    } else {
+      this.inventoryService.updateInventory(inventory)
+        .subscribe(
+          (result) => {
+            console.log('stockIn-result', result);
+            this.getInventory();
+          }
+        );
+    }
   }
 
   inventoryRemove(inventory: InventoryItem) {
-    console.log('remove-inventory: ', inventory);
+    if (inventory._id) {
+      this.inventoryService.removeInventory(inventory._id)
+        .subscribe(
+          (result) => {
+            console.log('stockIn-result', result);
+            this.getInventory();
+          }
+        );
+    } else {
+      console.log('Inventory ID is required.');
+    }
   }
 
 }
@@ -67,19 +102,20 @@ const newInventoryDetail = {
 
 // FOR INVENTORY DETAILS
 export interface InventoryItem {
+  _id?: string;
   prodDocId: string;
   productId: number;
   productName: string;
   stockIn: number;
   stockOut: number;
-  isDeleted: boolean;
-  createdAt: string;
-  updatedAt: string;
+  isDeleted?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface InventoryDetail {
   prodDocId: string;
-  productId: string;
+  productId: number | string;
   productName: string;
   totalStockIn: number | 0,
   totalStockOut: number | 0,

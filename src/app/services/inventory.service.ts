@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable } from 'rxjs';
 import { InventoryItem } from '../components/inventory/inventory.component';
 
 @Injectable({
@@ -20,15 +20,18 @@ export class InventoryService {
       );
   }
 
-  // createProduct(product: Product): Observable<Product> {
-  //   return this.http.post<Product>(`${this.baseUrl}/products`, product);
-  // }
+  stockIn(inventory: InventoryItem): Observable<InventoryItem> {
+    return this.http.post<InventoryItem>(`${this.baseUrl}/inventory`, inventory)
+      .pipe(
+        map((result: any) => (result.data as InventoryItem))
+      );
+  }
 
-  // updateProduct(product: Product): Observable<Product> {
-  //   return this.http.patch<Product>(`${this.baseUrl}/products/${product._id || product.id}`, product);
-  // }
+  updateInventory(inventory: InventoryItem): Observable<InventoryItem> {
+    return this.http.patch<InventoryItem>(`${this.baseUrl}/inventory/${inventory._id}`, inventory);
+  }
 
-  // removeProduct(productId: string): Observable<Product> {
-  //   return this.http.delete<Product>(`${this.baseUrl}/products/${productId}`);
-  // }
+  removeInventory(inventoryId: string): Observable<InventoryItem> {
+    return this.http.delete<InventoryItem>(`${this.baseUrl}/inventory/${inventoryId}`);
+  }
 }

@@ -96,13 +96,18 @@
                           [(ngModel)]="inventory.stockOut"
                           placeholder="Stock out"
                           aria-label="Stock out"
-                          [disabled]="!inventory.stockOut && inventory.stockIn"
+                          disabled
                         />
                       </td>
                       <td>
+                        <button class="btn btn-sm btn-success"
+                          (click)="inventorySave(inventory)"
+                          [disabled]="!inventory.stockOut && !inventory.stockIn">
+                          <span>&#9745;</span>
+                        </button>
                         <button class="btn btn-sm btn-danger"
                           (click)="inventoryRemove(inventory)"> &times;
-                          </button>
+                        </button>
                       </td>
                     </tr>
                   </tbody>

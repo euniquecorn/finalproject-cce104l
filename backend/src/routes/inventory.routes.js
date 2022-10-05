@@ -3,9 +3,9 @@ const { Schema: { ObjectId } } = require('mongoose');
 const { Products, Inventory } = require('../models');
 const { InventoryService } = require('../services');
 
-const ordersRoutes = Router();
+const inventoryRoutes = Router();
 
-ordersRoutes.get('/', async (req, res) => {
+inventoryRoutes.get('/', async (req, res) => {
   const { query } = req;
   query.isDeleted = undefined;
 
@@ -18,7 +18,7 @@ ordersRoutes.get('/', async (req, res) => {
   });
 });
 
-ordersRoutes.post('/', async (req, res) => {
+inventoryRoutes.post('/', async (req, res) => {
   try {
     const { body } = req;
     if (typeof body !== 'object') {
@@ -48,18 +48,18 @@ ordersRoutes.post('/', async (req, res) => {
   }
 });
 
-ordersRoutes.patch('/:id', async (req, res) => {
+inventoryRoutes.patch('/:id', async (req, res) => {
   const { params: { id }, body } = req;
 
   console.log(req.params, body);
 
   try {
-    Products.findOneAndUpdate(
+    Inventory.findOneAndUpdate(
       { _id: id },
       body,
       (result) => {
         res.status(200).send({
-          message: `Product ${id} successfully updated.`,
+          message: `Inventory ${id} successfully updated.`,
           code: 200,
           data: result
         });
@@ -77,11 +77,11 @@ ordersRoutes.patch('/:id', async (req, res) => {
   }
 });
 
-ordersRoutes.delete('/:id', async (req, res) => {
+inventoryRoutes.delete('/:id', async (req, res) => {
   const { params: { id } } = req;
 
   try {
-    Products.findOneAndUpdate(
+    Inventory.findOneAndUpdate(
       { _id: id },
       { isDeleted: true },
       (result) => {
@@ -97,11 +97,11 @@ ordersRoutes.delete('/:id', async (req, res) => {
     console.log('Delete product - error: ', error);
 
     res.status(500).send({
-      message: 'Failed to delete product',
+      message: 'Failed to delete inventory.',
       code: 500,
       error
     });
   }
 });
 
-module.exports = ordersRoutes;
+module.exports = inventoryRoutes;
