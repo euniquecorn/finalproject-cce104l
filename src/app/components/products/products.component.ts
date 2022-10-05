@@ -37,7 +37,7 @@ export class ProductsComponent implements OnInit {
   }
 
   save() {
-    if (this.isEditing) {
+    if (this.formData._id) {
       return this.productsService.updateProduct(this.formData)
         .subscribe(
           () => {

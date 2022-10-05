@@ -1,6 +1,5 @@
 const { Router } = require('express');
-const { Schema: { ObjectId } } = require('mongoose');
-const { Products, Inventory } = require('../models');
+const { Inventory } = require('../models');
 const { InventoryService } = require('../services');
 
 const inventoryRoutes = Router();
